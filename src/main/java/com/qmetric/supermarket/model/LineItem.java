@@ -3,12 +3,12 @@ package com.qmetric.supermarket.model;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class LineItem {
+class LineItem {
 
 	private Product product;
 	private BigDecimal weight;
 
-	public LineItem(Product product) {
+	LineItem(Product product) {
 		if (product.isWeighed()) {
 			throw new IllegalArgumentException(product.getName() + " needs to be weighed");
 		}
@@ -16,7 +16,7 @@ public class LineItem {
 		this.weight = BigDecimal.ONE;
 	}
 
-	public LineItem(Product product, BigDecimal weight) {
+	LineItem(Product product, BigDecimal weight) {
 		if (!product.isWeighed()) {
 			throw new IllegalArgumentException(product.getName() + " is not weighed");
 		}
@@ -24,11 +24,11 @@ public class LineItem {
 		this.weight = weight;
 	}
 
-	public BigDecimal getPrice() {
+	BigDecimal getPrice() {
 		return weight.multiply(product.getPrice()).setScale(2, RoundingMode.HALF_UP);
 	}
 
-	public Product getProduct() {
+	Product getProduct() {
 		return product;
 	}
 

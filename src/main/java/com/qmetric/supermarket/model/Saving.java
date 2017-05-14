@@ -2,17 +2,17 @@ package com.qmetric.supermarket.model;
 
 import java.math.BigDecimal;
 
-public class Saving {
+class Saving {
 
-	private SpecialOffer specialOffer;
-	private BigDecimal count;
+	private final SpecialOffer specialOffer;
+	private final BigDecimal count;
 
-	public Saving(SpecialOffer specialOffer, int count) {
+	Saving(SpecialOffer specialOffer, int count) {
 		this.specialOffer = specialOffer;
 		this.count = BigDecimal.valueOf(count);
 	}
 
-	public BigDecimal getSaving() {
+	BigDecimal getSaving() {
 		return specialOffer.getSaving().multiply(count);
 	}
 

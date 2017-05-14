@@ -2,39 +2,35 @@ package com.qmetric.supermarket.model;
 
 import java.math.BigDecimal;
 
-public class Product {
+class Product {
 
-	private String name;
-	private BigDecimal price;
-	private Unit unit;
+	private final String name;
+	private final BigDecimal price;
+	private final Unit unit;
 
-	public Product(String name, BigDecimal price) {
+	Product(String name, BigDecimal price) {
 		this(name, price, Unit.EACH);
 	}
 
-	public Product(String name, BigDecimal price, Unit unit) {
+	Product(String name, BigDecimal price, Unit unit) {
 		this.name = name;
 		this.price = price;
 		this.unit = unit;
 	}
 
-	public String getName() {
+	String getName() {
 		return name;
 	}
 
-	public BigDecimal getPrice() {
+	BigDecimal getPrice() {
 		return price;
 	}
 
-	public Unit getUnit() {
-		return unit;
-	}
-
-	public enum Unit {
+	enum Unit {
 		EACH, KG
 	}
 
-	public boolean isWeighed() {
+	boolean isWeighed() {
 		return Unit.KG == unit;
 	}
 }

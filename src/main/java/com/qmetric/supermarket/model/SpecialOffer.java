@@ -2,32 +2,26 @@ package com.qmetric.supermarket.model;
 
 import java.math.BigDecimal;
 
-public class SpecialOffer {
-	private String name;
-	private Product product;
-	private int triggerQuantity;
-	private BigDecimal saving;
+class SpecialOffer {
+	private final Product product;
+	private final int triggerQuantity;
+	private final BigDecimal saving;
 
-	public SpecialOffer(String name, Product product, int triggerQuantity, BigDecimal saving) {
-		this.name = name;
+	SpecialOffer(Product product, int triggerQuantity, BigDecimal saving) {
 		this.product = product;
 		this.triggerQuantity = triggerQuantity;
 		this.saving = saving;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public int getTriggerQuantity() {
+	int getTriggerQuantity() {
 		return triggerQuantity;
 	}
 
-	public BigDecimal getSaving() {
+	BigDecimal getSaving() {
 		return saving;
 	}
 
-	public Product getProduct() {
+	Product getProduct() {
 		return product;
 	}
 

@@ -6,36 +6,36 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ShoppingCart {
+class ShoppingCart {
 	private final List<LineItem> items;
 
-	public ShoppingCart() {
+	ShoppingCart() {
 		this(new ArrayList<>());
 	}
 
-	ShoppingCart(final List<LineItem> items) {
+	private ShoppingCart(final List<LineItem> items) {
 		this.items = items;
 	}
 
-	public BigDecimal getSubtotal() {
-		return items.stream().map(i -> i.getPrice()).reduce(BigDecimal.ZERO, BigDecimal::add);
+	BigDecimal getSubtotal() {
+		return items.stream().map(LineItem::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 
-	public ShoppingCart withItem(LineItem item) {
+	private ShoppingCart withItem(LineItem item) {
 		List<LineItem> newItems = new ArrayList<>(items);
 		newItems.add(item);
 		return new ShoppingCart(newItems);
 	}
 
-	public ShoppingCart withItem(Product product) {
+	ShoppingCart withItem(Product product) {
 		return withItem(new LineItem(product));
 	}
 
-	public ShoppingCart withItem(Product product, BigDecimal weight) {
+	ShoppingCart withItem(Product product, BigDecimal weight) {
 		return withItem(new LineItem(product, weight));
 	}
 
-	public List<Saving> getSavings(List<SpecialOffer> specialOffers) {
+	private List<Saving> getSavings(List<SpecialOffer> specialOffers) {
 		Map<Product, Long> productCounts = getProductCounts();
 
 		return specialOffers.stream().filter(offer -> productCounts.containsKey(offer.getProduct())).map(offer -> {
@@ -49,13 +49,11 @@ public class ShoppingCart {
 		return items.stream().collect(Collectors.groupingBy(LineItem::getProduct, Collectors.counting()));
 	}
 
-
-
-	public BigDecimal getTotalSavings(List<SpecialOffer> specialOffers) {
-		return getSavings(specialOffers).stream().map(s -> s.getSaving()).reduce(BigDecimal.ZERO, BigDecimal::add);
+	BigDecimal getTotalSavings(List<SpecialOffer> specialOffers) {
+		return getSavings(specialOffers).stream().map(Saving::getSaving).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 
-	public BigDecimal getTotal(List<SpecialOffer> specialOffers) {
+	BigDecimal getTotal(List<SpecialOffer> specialOffers) {
 		return getSubtotal().subtract(getTotalSavings(specialOffers));
 	}
 
