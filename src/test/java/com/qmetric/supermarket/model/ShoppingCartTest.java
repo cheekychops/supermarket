@@ -1,26 +1,68 @@
 package com.qmetric.supermarket.model;
 
 import static com.qmetric.supermarket.model.TestData.BEANS;
+import static com.qmetric.supermarket.model.TestData.COKE;
+import static com.qmetric.supermarket.model.TestData.ORANGES;
+import static com.qmetric.supermarket.model.TestData.SPECIAL_OFFERS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 
 import org.junit.Test;
 
 public class ShoppingCartTest {
 
 	@Test
-	public void shouldCalculateTotalForEmptyCart() {
+	public void shouldCalculateSubtotalForEmptyCart() {
 		ShoppingCart cart = new ShoppingCart();
-		assertThat(cart.getTotal(), is(BigDecimal.ZERO));
+		assertThat(cart.getSubtotal(), is(BigDecimal.ZERO));
 	}
 
 	@Test
-	public void shouldCalculateTotalForNonEmptyCart() {
+	public void shouldCalculateSubtotalForNonEmptyCart() {
 		ShoppingCart cart = new ShoppingCart().withItem(BEANS);
-		assertThat(cart.getTotal(), is(new BigDecimal("0.50")));
+		assertThat(cart.getSubtotal(), is(new BigDecimal("0.50")));
 	}
 
+	@Test
+	public void shouldCalculateTotalWithoutOffers() {
+		ShoppingCart cart = new ShoppingCart().withItem(BEANS);
+		assertThat(cart.getTotal(Collections.emptyList()), is(new BigDecimal("0.50")));
+	}
+
+	@Test
+	public void shouldCalculateTotalWithOffersFullyUtilised() {
+		ShoppingCart cart = new ShoppingCart().withItem(BEANS).withItem(BEANS).withItem(BEANS);
+		assertThat(cart.getTotal(SPECIAL_OFFERS), is(new BigDecimal("1.00")));
+	}
+
+	@Test
+	public void shouldCalculateTotalWithOffersUnderUtilised() {
+		ShoppingCart cart = new ShoppingCart().withItem(BEANS).withItem(BEANS);
+		assertThat(cart.getTotal(SPECIAL_OFFERS), is(new BigDecimal("1.00")));
+	}
+
+	@Test
+	public void shouldCalculateTotalWithOffersOverUtilised() {
+		ShoppingCart cart = new ShoppingCart().withItem(BEANS).withItem(BEANS).withItem(BEANS).withItem(BEANS);
+		assertThat(cart.getTotal(SPECIAL_OFFERS), is(new BigDecimal("1.50")));
+	}
+
+	@Test
+	public void shouldCalculateTotalWithOffersAppliedMoreThanOnce() {
+		ShoppingCart cart = new ShoppingCart().withItem(COKE).withItem(COKE).withItem(COKE).withItem(COKE);
+		assertThat(cart.getTotal(SPECIAL_OFFERS), is(new BigDecimal("2.00")));
+	}
+
+	@Test
+	public void acceptanceTest() {
+		ShoppingCart cart = new ShoppingCart().withItem(BEANS).withItem(BEANS).withItem(BEANS).withItem(COKE)
+				.withItem(COKE).withItem(ORANGES, new BigDecimal("0.2"));
+		assertThat(cart.getSubtotal(), is(new BigDecimal("3.30")));
+		assertThat(cart.getTotalSavings(SPECIAL_OFFERS), is(new BigDecimal("0.90")));
+		assertThat(cart.getTotal(SPECIAL_OFFERS), is(new BigDecimal("2.40")));
+	}
 
 }

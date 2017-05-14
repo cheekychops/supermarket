@@ -28,5 +28,8 @@ public class LineItem {
 		return weight.multiply(product.getPrice()).setScale(2, RoundingMode.HALF_UP);
 	}
 
+	public Product getProduct() {
+		return product;
+	}
 
 }
