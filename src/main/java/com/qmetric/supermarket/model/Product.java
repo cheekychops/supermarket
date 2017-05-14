@@ -1,18 +1,16 @@
 package com.qmetric.supermarket.model;
 
-import java.math.BigDecimal;
-
 class Product {
 
 	private final String name;
-	private final BigDecimal price;
+	private final Money price;
 	private final Unit unit;
 
-	Product(String name, BigDecimal price) {
+	Product(String name, Money price) {
 		this(name, price, Unit.EACH);
 	}
 
-	Product(String name, BigDecimal price, Unit unit) {
+	Product(String name, Money price, Unit unit) {
 		this.name = name;
 		this.price = price;
 		this.unit = unit;
@@ -22,7 +20,7 @@ class Product {
 		return name;
 	}
 
-	BigDecimal getPrice() {
+	Money getPrice() {
 		return price;
 	}
 

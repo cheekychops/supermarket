@@ -13,12 +13,12 @@ public class LineItemTest {
 
 	@Test
 	public void shouldCalculateEachPrice() {
-		assertThat(new LineItem(BEANS).getPrice(), is(new BigDecimal("0.50")));
+		assertThat(new LineItem(BEANS).getPrice(), is(Money.of("0.50")));
 	}
 
 	@Test
 	public void shouldCalculatePerUnitPrice() {
-		assertThat(new LineItem(ORANGES, new BigDecimal("0.2")).getPrice(), is(new BigDecimal("0.40")));
+		assertThat(new LineItem(ORANGES, new BigDecimal("0.2")).getPrice(), is(Money.of("0.40")));
 	}
 
 	@Test(expected = IllegalArgumentException.class)

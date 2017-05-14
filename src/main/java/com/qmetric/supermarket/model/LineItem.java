@@ -1,7 +1,6 @@
 package com.qmetric.supermarket.model;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 class LineItem {
 
@@ -24,8 +23,8 @@ class LineItem {
 		this.weight = weight;
 	}
 
-	BigDecimal getPrice() {
-		return weight.multiply(product.getPrice()).setScale(2, RoundingMode.HALF_UP);
+	Money getPrice() {
+		return product.getPrice().multiply(weight);
 	}
 
 	Product getProduct() {

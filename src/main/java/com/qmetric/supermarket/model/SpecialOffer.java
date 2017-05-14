@@ -1,13 +1,11 @@
 package com.qmetric.supermarket.model;
 
-import java.math.BigDecimal;
-
 class SpecialOffer {
 	private final Product product;
 	private final int triggerQuantity;
-	private final BigDecimal saving;
+	private final Money saving;
 
-	SpecialOffer(Product product, int triggerQuantity, BigDecimal saving) {
+	SpecialOffer(Product product, int triggerQuantity, Money saving) {
 		this.product = product;
 		this.triggerQuantity = triggerQuantity;
 		this.saving = saving;
@@ -17,7 +15,7 @@ class SpecialOffer {
 		return triggerQuantity;
 	}
 
-	BigDecimal getSaving() {
+	Money getSaving() {
 		return saving;
 	}
 

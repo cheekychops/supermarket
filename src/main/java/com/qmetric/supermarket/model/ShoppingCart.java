@@ -17,8 +17,8 @@ class ShoppingCart {
 		this.items = items;
 	}
 
-	BigDecimal getSubtotal() {
-		return items.stream().map(LineItem::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+	Money getSubtotal() {
+		return items.stream().map(LineItem::getPrice).reduce(Money.ZERO, Money::add);
 	}
 
 	private ShoppingCart withItem(LineItem item) {
@@ -49,11 +49,11 @@ class ShoppingCart {
 		return items.stream().collect(Collectors.groupingBy(LineItem::getProduct, Collectors.counting()));
 	}
 
-	BigDecimal getTotalSavings(List<SpecialOffer> specialOffers) {
-		return getSavings(specialOffers).stream().map(Saving::getSaving).reduce(BigDecimal.ZERO, BigDecimal::add);
+	Money getTotalSavings(List<SpecialOffer> specialOffers) {
+		return getSavings(specialOffers).stream().map(Saving::getSaving).reduce(Money.ZERO, Money::add);
 	}
 
-	BigDecimal getTotal(List<SpecialOffer> specialOffers) {
+	Money getTotal(List<SpecialOffer> specialOffers) {
 		return getSubtotal().subtract(getTotalSavings(specialOffers));
 	}
 
