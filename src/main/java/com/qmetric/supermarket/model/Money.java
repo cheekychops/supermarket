@@ -67,4 +67,8 @@ public class Money {
 		return new Money(amount.multiply(bigDecimal).setScale(2, RoundingMode.HALF_UP));
 	}
 
+	public Money multiply(Weight weight) {
+		return multiply(weight.asBigDecimal());
+	}
+
 }

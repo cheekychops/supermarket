@@ -7,7 +7,6 @@ import static com.qmetric.supermarket.model.TestData.SPECIAL_OFFERS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import java.math.BigDecimal;
 import java.util.Collections;
 
 import org.junit.Test;
@@ -59,7 +58,7 @@ public class ShoppingCartTest {
 	@Test
 	public void acceptanceTest() {
 		ShoppingCart cart = new ShoppingCart().withItem(BEANS).withItem(BEANS).withItem(BEANS).withItem(COKE)
-				.withItem(COKE).withItem(ORANGES, new BigDecimal("0.2"));
+				.withItem(COKE).withItem(ORANGES, Weight.of("0.2"));
 		assertThat(cart.getSubtotal(), is(Money.of("3.30")));
 		assertThat(cart.getTotalSavings(SPECIAL_OFFERS), is(Money.of("0.90")));
 		assertThat(cart.getTotal(SPECIAL_OFFERS), is(Money.of("2.40")));

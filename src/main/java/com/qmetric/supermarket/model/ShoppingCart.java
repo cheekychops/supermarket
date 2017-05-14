@@ -1,6 +1,5 @@
 package com.qmetric.supermarket.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +30,7 @@ class ShoppingCart {
 		return withItem(new LineItem(product));
 	}
 
-	ShoppingCart withItem(Product product, BigDecimal weight) {
+	ShoppingCart withItem(Product product, Weight weight) {
 		return withItem(new LineItem(product, weight));
 	}
 
