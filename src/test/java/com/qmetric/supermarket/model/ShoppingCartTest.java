@@ -1,7 +1,6 @@
 package com.qmetric.supermarket.model;
 
 import static com.qmetric.supermarket.model.TestData.BEANS;
-import static com.qmetric.supermarket.model.TestData.FIFTY_PENCE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -20,7 +19,7 @@ public class ShoppingCartTest {
 	@Test
 	public void shouldCalculateTotalForNonEmptyCart() {
 		ShoppingCart cart = new ShoppingCart().withItem(BEANS);
-		assertThat(cart.getTotal(), is(FIFTY_PENCE));
+		assertThat(cart.getTotal(), is(new BigDecimal("0.50")));
 	}
 
 
