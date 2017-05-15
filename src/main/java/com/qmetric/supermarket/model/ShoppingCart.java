@@ -2,7 +2,6 @@ package com.qmetric.supermarket.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 class ShoppingCart {
@@ -34,26 +33,20 @@ class ShoppingCart {
 		return withItem(new LineItem(product, weight));
 	}
 
-	private List<Saving> getSavings(List<SpecialOffer> specialOffers) {
-		Map<Product, Long> productCounts = getProductCounts();
-
-		return specialOffers.stream().filter(offer -> productCounts.containsKey(offer.getProduct())).map(offer -> {
-			int quantity = productCounts.get(offer.getProduct()).intValue();
-			int hits = quantity / offer.getTriggerQuantity();
-			return new Saving(offer, hits);
-		}).collect(Collectors.toList());
+	private List<Saving> getSavings(List<Offer> offers) {
+		return offers.stream().map(offer -> offer.getSaving(this)).collect(Collectors.toList());
 	}
 
-	private Map<Product, Long> getProductCounts() {
-		return items.stream().collect(Collectors.groupingBy(LineItem::getProduct, Collectors.counting()));
+	Money getTotalSavings(List<Offer> offers) {
+		return getSavings(offers).stream().map(Saving::getSaving).reduce(Money.ZERO, Money::add);
 	}
 
-	Money getTotalSavings(List<SpecialOffer> specialOffers) {
-		return getSavings(specialOffers).stream().map(Saving::getSaving).reduce(Money.ZERO, Money::add);
+	Money getTotal(List<Offer> offers) {
+		return getSubtotal().subtract(getTotalSavings(offers));
 	}
 
-	Money getTotal(List<SpecialOffer> specialOffers) {
-		return getSubtotal().subtract(getTotalSavings(specialOffers));
+	public List<LineItem> getLineItems() {
+		return items;
 	}
 
 }

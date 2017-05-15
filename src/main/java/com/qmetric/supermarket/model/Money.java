@@ -71,4 +71,9 @@ public class Money {
 		return multiply(weight.asBigDecimal());
 	}
 
+	@Override
+	public String toString() {
+		return amount.toString();
+	}
+
 }

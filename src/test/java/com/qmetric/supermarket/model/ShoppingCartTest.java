@@ -32,27 +32,33 @@ public class ShoppingCartTest {
 	}
 
 	@Test
-	public void shouldCalculateTotalWithOffersFullyUtilised() {
+	public void shouldCalculateTotalWithMultiBuyOffersFullyUtilised() {
 		ShoppingCart cart = new ShoppingCart().withItem(BEANS).withItem(BEANS).withItem(BEANS);
 		assertThat(cart.getTotal(SPECIAL_OFFERS), is(Money.of("1.00")));
 	}
 
 	@Test
-	public void shouldCalculateTotalWithOffersUnderUtilised() {
+	public void shouldCalculateTotalWithMultiBuyOffersUnderUtilised() {
 		ShoppingCart cart = new ShoppingCart().withItem(BEANS).withItem(BEANS);
 		assertThat(cart.getTotal(SPECIAL_OFFERS), is(Money.of("1.00")));
 	}
 
 	@Test
-	public void shouldCalculateTotalWithOffersOverUtilised() {
+	public void shouldCalculateTotalWithMultiBuyOffersOverUtilised() {
 		ShoppingCart cart = new ShoppingCart().withItem(BEANS).withItem(BEANS).withItem(BEANS).withItem(BEANS);
 		assertThat(cart.getTotal(SPECIAL_OFFERS), is(Money.of("1.50")));
 	}
 
 	@Test
-	public void shouldCalculateTotalWithOffersAppliedMoreThanOnce() {
+	public void shouldCalculateTotalWithMultiBuyOffersAppliedMoreThanOnce() {
 		ShoppingCart cart = new ShoppingCart().withItem(COKE).withItem(COKE).withItem(COKE).withItem(COKE);
 		assertThat(cart.getTotal(SPECIAL_OFFERS), is(Money.of("2.00")));
+	}
+
+	@Test
+	public void shouldCalculateTotalWithDiscountOffer() {
+		ShoppingCart cart = new ShoppingCart().withItem(ORANGES, Weight.of("0.2"));
+		assertThat(cart.getTotal(SPECIAL_OFFERS), is(Money.of("0.36")));
 	}
 
 	@Test
@@ -60,8 +66,8 @@ public class ShoppingCartTest {
 		ShoppingCart cart = new ShoppingCart().withItem(BEANS).withItem(BEANS).withItem(BEANS).withItem(COKE)
 				.withItem(COKE).withItem(ORANGES, Weight.of("0.2"));
 		assertThat(cart.getSubtotal(), is(Money.of("3.30")));
-		assertThat(cart.getTotalSavings(SPECIAL_OFFERS), is(Money.of("0.90")));
-		assertThat(cart.getTotal(SPECIAL_OFFERS), is(Money.of("2.40")));
+		assertThat(cart.getTotalSavings(SPECIAL_OFFERS), is(Money.of("0.94")));
+		assertThat(cart.getTotal(SPECIAL_OFFERS), is(Money.of("2.36")));
 	}
 
 }
