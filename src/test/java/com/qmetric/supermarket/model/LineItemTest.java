@@ -5,7 +5,9 @@ import static com.qmetric.supermarket.model.TestData.ORANGES;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class LineItemTest {
 
@@ -19,13 +21,20 @@ public class LineItemTest {
 		assertThat(new LineItem(ORANGES, Weight.of("0.2")).getPrice(), is(Money.of("0.40")));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
+
+	@Test
 	public void shouldThrowExceptionWhenNoWeightGivenWhenNeeded() {
+		thrown.expect(IllegalArgumentException.class);
+		thrown.expectMessage("Oranges needs to be weighed");
 		new LineItem(ORANGES);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void shouldThrowExceptionWhenWeightGivenWhenNotNeeded() {
+		thrown.expect(IllegalArgumentException.class);
+		thrown.expectMessage("Beans is not weighed");
 		new LineItem(BEANS, Weight.of("0.2"));
 	}
 }
