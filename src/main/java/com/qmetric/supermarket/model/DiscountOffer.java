@@ -23,9 +23,4 @@ public class DiscountOffer extends AbstractOffer {
 		Money discount = productTotal.multiply(percentageDiscount);
 		return new Saving(this, discount);
 	}
-
-	@Override
-	public String toString() {
-		return "DiscountOffer [percentageDiscount=" + percentageDiscount + "]";
-	}
 }

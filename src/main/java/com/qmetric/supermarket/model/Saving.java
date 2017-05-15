@@ -1,5 +1,9 @@
 package com.qmetric.supermarket.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 class Saving {
 
 	private final Offer offer;
@@ -20,45 +24,17 @@ class Saving {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((money == null) ? 0 : money.hashCode());
-		result = prime * result + ((offer == null) ? 0 : offer.hashCode());
-		return result;
+		return HashCodeBuilder.reflectionHashCode(this, true);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Saving other = (Saving) obj;
-		if (money == null) {
-			if (other.money != null) {
-				return false;
-			}
-		} else if (!money.equals(other.money)) {
-			return false;
-		}
-		if (offer == null) {
-			if (other.offer != null) {
-				return false;
-			}
-		} else if (!offer.equals(other.offer)) {
-			return false;
-		}
-		return true;
+		return EqualsBuilder.reflectionEquals(this,  obj,  true);
 	}
 
 	@Override
 	public String toString() {
-		return "Saving [offer=" + offer + ", money=" + money + "]";
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

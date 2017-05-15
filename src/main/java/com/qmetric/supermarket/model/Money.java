@@ -3,6 +3,10 @@ package com.qmetric.supermarket.model;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class Money {
 
 	public static final Money ZERO = new Money(BigDecimal.ZERO);
@@ -23,32 +27,12 @@ public class Money {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
-		return result;
+		return HashCodeBuilder.reflectionHashCode(this, true);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Money other = (Money) obj;
-		if (amount == null) {
-			if (other.amount != null) {
-				return false;
-			}
-		} else if (!amount.equals(other.amount)) {
-			return false;
-		}
-		return true;
+		return EqualsBuilder.reflectionEquals(this, obj, true);
 	}
 
 	public Money subtract(Money money) {
@@ -73,7 +57,7 @@ public class Money {
 
 	@Override
 	public String toString() {
-		return amount.toString();
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

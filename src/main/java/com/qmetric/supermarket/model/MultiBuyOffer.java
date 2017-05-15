@@ -21,9 +21,4 @@ class MultiBuyOffer extends AbstractOffer {
 		return new Saving(this, discount.multiply(hits));
 	}
 
-	@Override
-	public String toString() {
-		return "MultiBuyOffer [triggerQuantity=" + triggerQuantity + ", discount=" + discount + "]";
-	}
-
 }
