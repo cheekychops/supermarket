@@ -17,10 +17,6 @@ public class Money {
 		this.amount = amount;
 	}
 
-	BigDecimal asBigDecimal() {
-		return amount;
-	}
-
 	static Money of(String amount) {
 		return new Money(new BigDecimal(amount));
 	}
