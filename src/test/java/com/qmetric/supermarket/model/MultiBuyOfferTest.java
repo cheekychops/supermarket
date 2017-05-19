@@ -12,7 +12,7 @@ public class MultiBuyOfferTest {
 	@Test
 	public void shouldCalculateSavings() {
 		ShoppingCart cart = new ShoppingCart().withItem(COKE).withItem(COKE);
-		assertThat(COKE_OFFER.getSaving(cart), is(new Saving(COKE_OFFER, Money.of("0.40"))));
+		assertThat(COKE_OFFER.getSaving(cart).getSaving(), is(Money.of("0.40")));
 	}
 
 }

@@ -12,7 +12,7 @@ public class DiscountOfferTest {
 	@Test
 	public void shouldCalculateSavings() {
 		ShoppingCart cart = new ShoppingCart().withItem(ORANGES, Weight.of("0.2"));
-		assertThat(ORANGES_OFFER.getSaving(cart), is(new Saving(ORANGES_OFFER, Money.of("0.04"))));
+		assertThat(ORANGES_OFFER.getSaving(cart).getSaving(), is(Money.of("0.04")));
 	}
 
 }
